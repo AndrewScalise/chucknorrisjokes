@@ -1,8 +1,8 @@
 import React from 'react';
 
-function JokeButton() {
+const JokeButton = ({generateJoke}) => {
     return (
-        <button className="JokeButton" type="button">Chuck Norris Joke</button>
+        <button className="JokeButton" type="button" onClick={generateJoke}>Chuck Norris Joke</button>
     );
 }
 
