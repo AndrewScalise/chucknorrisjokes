@@ -6,13 +6,20 @@ import "./App.css";
 
 const App = () => {
   const [joke, setJoke] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const generateJoke = () => {
+    setSuccess(false);
+    setLoading(true);
     fetch("https://api.chucknorris.io/jokes/random")
       .then((response) => response.json())
       .then((generatedJoke) => {
-        console.log("generatedJoke", generatedJoke);
-        setJoke(generatedJoke.value);
+        setTimeout(() => {
+          setLoading(false);
+          setSuccess(true);
+          setJoke(generatedJoke.value);
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
@@ -26,7 +33,11 @@ const App = () => {
         className="Chuck-Pic"
         alt="Chuck Norris Cartoon"
       />
-      <JokeButton generateJoke={generateJoke} />
+      <JokeButton
+        generateJoke={generateJoke}
+        loading={loading}
+        success={success}
+      />
       <JokeText joke={joke} />
     </div>
   );
